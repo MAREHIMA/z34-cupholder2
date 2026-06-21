@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Z34 助手席ニーフック カップホルダー｜hima engineering</title>
+
+<!-- ===== X / OGP カード ===========================================
+     ・og:image / twitter:image は「絶対URL(https://...)」の静止画。
+     ・推奨 1200×630px。3Dはカードに出ないので、製品写真かレンダーを置く。
+     ・公開URLに合わせて og:url と各画像URLを差し替える。
+================================================================ -->
+<meta property="og:type" content="product">
+<meta property="og:title" content="Z34 助手席ニーフック カップホルダー">
+<meta property="og:description" content="日産フェアレディZ (Z34) 専用。3Dで回して、ARで自分の車に置いて確認できます。">
+<meta property="og:url" content="https://example.com/z34-cupholder.html"><!-- ← 公開URLに -->
+<meta property="og:image" content="https://example.com/ogp.jpg"><!-- ← 1200×630の絶対URLに -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Z34 助手席ニーフック カップホルダー">
+<meta name="twitter:description" content="日産フェアレディZ (Z34) 専用。3Dで回して、ARで自分の車に置いて確認できます。">
+<meta name="twitter:image" content="https://example.com/ogp.jpg"><!-- ← 絶対URLに -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=IBM+Plex+Sans+JP:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+
+<!-- model-viewer 本体（バージョン固定） -->
+<script type="module" src="https://unpkg.com/@google/model-viewer@4.3.1/dist/model-viewer.min.js"></script>
+
+<style>
+  :root{
+    --bg:#13161B; --panel:#1A1E25; --panel-2:#20252E;
+    --line:#2C333D; --ink:#ECEEF1; --muted:#939BA7;
+    --accent:#FF6A2B; --accent-ink:#180B04;
+    --blueprint:#6E8AA6;
+    --r:14px;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font-family:"IBM Plex Sans JP",system-ui,sans-serif;
+    line-height:1.65; letter-spacing:.01em;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1080px; margin:0 auto; padding:20px 18px 56px}
+
+  /* ---- header ---- */
+  header{display:flex; align-items:baseline; justify-content:space-between; gap:12px; padding:6px 2px 22px}
+  .brand{font-weight:700; letter-spacing:.02em; font-size:15px}
+  .brand b{color:var(--accent)}
+  .code{font-family:"JetBrains Mono",monospace; font-size:12px; color:var(--muted); letter-spacing:.08em}
+
+  /* ---- layout ---- */
+  .hero{display:grid; grid-template-columns:1fr; gap:26px}
+  @media(min-width:880px){ .hero{grid-template-columns:1.05fr .95fr; gap:34px; align-items:start} }
+
+  /* ---- 計測ビューポート（signature） ---- */
+  .viewport{position:relative; border:1px solid var(--line); border-radius:var(--r);
+    background:
+      radial-gradient(120% 90% at 50% 0%, #1c222b 0%, #14181e 60%, #11141a 100%);
+    overflow:hidden;}
+  /* blueprint grid */
+  .viewport::before{content:""; position:absolute; inset:0; pointer-events:none; opacity:.5;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size:34px 34px; mask:radial-gradient(75% 75% at 50% 45%, #000 55%, transparent 100%);}
+  model-viewer{width:100%; height:62vh; min-height:340px; max-height:560px; background:transparent;
+    --poster-color:transparent;}
+  /* corner registration ticks */
+  .tick{position:absolute; width:16px; height:16px; border-color:var(--blueprint); opacity:.85; pointer-events:none}
+  .tick.tl{top:12px;left:12px;border-top:2px solid;border-left:2px solid}
+  .tick.tr{top:12px;right:12px;border-top:2px solid;border-right:2px solid}
+  .tick.bl{bottom:12px;left:12px;border-bottom:2px solid;border-left:2px solid}
+  .tick.br{bottom:12px;right:12px;border-bottom:2px solid;border-right:2px solid}
+  /* spec rails */
+  .rail{position:absolute; left:0; right:0; display:flex; justify-content:space-between;
+    font-family:"JetBrains Mono",monospace; font-size:11px; letter-spacing:.06em; color:var(--blueprint);
+    padding:14px 18px; pointer-events:none}
+  .rail.top{top:0} .rail.bot{bottom:0; color:var(--muted)}
+  .rail .dot{color:var(--accent)}
+
+  /* hint chips */
+  .hints{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px}
+  .chip{font-size:12.5px; color:var(--muted); border:1px solid var(--line);
+    border-radius:999px; padding:6px 12px; background:var(--panel)}
+  .chip b{color:var(--ink); font-weight:600}
+
+  /* custom AR button (slotted) */
+  .ar-btn{position:absolute; right:14px; bottom:14px; z-index:5;
+    display:inline-flex; align-items:center; gap:8px; cursor:pointer;
+    background:var(--accent); color:var(--accent-ink); border:none; border-radius:999px;
+    font-family:"IBM Plex Sans JP",sans-serif; font-weight:700; font-size:13.5px;
+    padding:11px 16px; box-shadow:0 6px 20px rgba(255,106,43,.32)}
+  .ar-btn svg{width:16px;height:16px}
+  /* model-viewer がAR非対応端末では slot を隠す */
+
+  /* ---- 製品情報 ---- */
+  .eyebrow{font-family:"JetBrains Mono",monospace; font-size:12px; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--accent); margin:0 0 10px}
+  h1{font-family:"Archivo",sans-serif; font-weight:800; font-size:clamp(26px,6vw,40px);
+    line-height:1.08; letter-spacing:-.01em; margin:0 0 6px}
+  .jp-title{font-size:clamp(15px,3.6vw,18px); font-weight:600; color:var(--ink); margin:0 0 16px}
+  .lead{color:var(--muted); font-size:15px; margin:0 0 22px; max-width:46ch}
+
+  /* spec table */
+  .specs{border-top:1px solid var(--line); margin:0 0 24px}
+  .specs .row{display:grid; grid-template-columns:104px 1fr; gap:12px;
+    padding:11px 2px; border-bottom:1px solid var(--line); align-items:baseline}
+  .specs dt{font-family:"JetBrains Mono",monospace; font-size:11px; letter-spacing:.06em;
+    color:var(--blueprint); text-transform:uppercase; margin:0}
+  .specs dd{margin:0; font-size:14.5px}
+  .specs .fill{color:var(--accent)} /* ← 実測値の差し替え位置を明示 */
+
+  /* CTA */
+  .cta{display:flex; flex-wrap:wrap; gap:12px}
+  .btn{flex:1 1 160px; text-align:center; text-decoration:none; border-radius:12px;
+    padding:15px 18px; font-weight:700; font-size:15px; transition:transform .12s ease, background .15s}
+  .btn:active{transform:translateY(1px)}
+  .btn.primary{background:var(--accent); color:var(--accent-ink)}
+  .btn.primary:hover{background:#ff7e49}
+  .btn.ghost{background:var(--panel); color:var(--ink); border:1px solid var(--line)}
+  .btn.ghost:hover{background:var(--panel-2)}
+  .price{font-family:"JetBrains Mono",monospace; font-weight:700; font-size:22px; margin:0 0 18px}
+  .price small{color:var(--muted); font-weight:500; font-size:12px; font-family:"IBM Plex Sans JP"}
+
+  footer{margin-top:40px; padding-top:18px; border-top:1px solid var(--line);
+    color:var(--muted); font-size:12.5px}
+  footer a{color:var(--blueprint)}
+
+  :focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:6px}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important; transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand">hima <b>engineering</b></div>
+    <div class="code">MODEL · Z34-KH-01</div>
+  </header>
+
+  <div class="hero">
+
+    <!-- ===== 計測ビューポート ===== -->
+    <div class="viewport">
+      <div class="rail top"><span><span class="dot">●</span> LIVE 3D</span><span>NISSAN FAIRLADY Z (Z34)</span></div>
+
+      <!--  ▼▼▼  ここを自分のモデルに差し替え  ▼▼▼
+            src       … GLB（ビューア＋Android AR用）
+            ios-src   … USDZ（iPhone AR / Quick Look用）
+            ※ どちらも実寸(メートル単位)で書き出すこと（mmなら1000で割る）
+      -->
+      <model-viewer
+        src="https://modelviewer.dev/shared-assets/models/Astronaut.glb"
+        ios-src="https://modelviewer.dev/shared-assets/models/Astronaut.usdz"
+        alt="Z34 助手席ニーフック カップホルダーの3Dモデル"
+        poster=""
+        camera-controls
+        touch-action="pan-y"
+        auto-rotate auto-rotate-delay="0" rotation-per-second="18deg"
+        shadow-intensity="1" exposure="1" environment-image="neutral"
+        ar ar-modes="webxr scene-viewer quick-look" ar-scale="fixed"
+        interaction-prompt="none">
+        <!--  ▲▲▲  差し替えここまで  ▲▲▲  -->
+
+        <button slot="ar-button" class="ar-btn" aria-label="ARで自分のZ34に置く">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 3 7v10l9 5 9-5V7z"/><path d="M3 7l9 5 9-5M12 12v10"/></svg>
+          ARで自分のZ34に置く
+        </button>
+      </model-viewer>
+
+      <span class="tick tl"></span><span class="tick tr"></span>
+      <span class="tick bl"></span><span class="tick br"></span>
+      <div class="rail bot"><span>DRAG / PINCH</span><span>3D PRINTED · PETG</span></div>
+    </div>
+
+    <!-- ===== 製品情報 ===== -->
+    <div class="product-info">
+      <p class="eyebrow">助手席ニーフック専用</p>
+      <h1>Knee-Hook Cupholder</h1>
+      <p class="jp-title">Z34 助手席ニーフック カップホルダー</p>
+      <p class="lead">純正の助手席ニーフックにそのまま掛けるだけ。穴あけ・接着なしで、ドリンクの置き場所を増やせます。フェアレディZ (Z34) 専用設計。</p>
+
+      <p class="price">¥—,—　<small>← 価格を記入</small></p>
+
+      <dl class="specs">
+        <div class="row"><dt>対応車種</dt><dd>日産 フェアレディZ（Z34 / 2008〜）</dd></div>
+        <div class="row"><dt>取付位置</dt><dd>助手席ニーフック（無加工・掛けるだけ）</dd></div>
+        <div class="row"><dt>素材</dt><dd>3Dプリント（PETG）</dd></div>
+        <div class="row"><dt>寸法</dt><dd class="fill">W— × D— × H— mm　← 実測値</dd></div>
+        <div class="row"><dt>カラー</dt><dd class="fill">ブラック ／ その他 ← 記入</dd></div>
+      </dl>
+
+      <div class="cta">
+        <a class="btn primary" href="https://himaengineering.booth.pm/" target="_blank" rel="noopener">BOOTHで購入</a>
+        <a class="btn ghost" href="#" target="_blank" rel="noopener">メルカリで見る<!-- ← 出品URLに --></a>
+      </div>
+
+      <div class="hints">
+        <span class="chip"><b>ドラッグ</b>で回転</span>
+        <span class="chip"><b>ピンチ</b>で拡大</span>
+        <span class="chip">スマホなら<b>AR</b>で実車に置ける</span>
+      </div>
+    </div>
+
+  </div>
+
+  <footer>
+    AR表示は対応スマホで動作します（iPhone: iOS Quick Look ／ Android: Scene Viewer）。
+    寸法は手作業計測のため誤差があります。&nbsp;·&nbsp;
+    <a href="https://himaengineering.booth.pm/" target="_blank" rel="noopener">hima engineering</a>
+  </footer>
+
+</div>
+</body>
+</html>
